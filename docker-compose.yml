@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  asterisk-a:
+    image: andrius/asterisk
+    container_name: asterisk-a
+    restart: unless-stopped
+    volumes:
+      - ./config/asterisk-a:/etc/asterisk
+    ports:
+      - "5060:5060/udp"
+      - "10000-10050:10000-10050/udp"
+      - "8088:8088"
+      - "5038:5038"
+    networks:
+      - astnet
+
+  asterisk-b:
+    image: andrius/asterisk
+    container_name: asterisk-b
+    restart: unless-stopped
+    volumes:
+      - ./config/asterisk-b:/etc/asterisk
+    ports:
+      - "5160:5060/udp"
+      - "11000-11050:10000-10050/udp"
+      - "8089:8088"
+      - "5039:5038"
+    networks:
+      - astnet
+
+networks:
+  astnet:
+    driver: bridge

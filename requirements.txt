@@ -1,0 +1,4 @@
+asterisk-ami
+pyst2
+requests
+python-dotenv
