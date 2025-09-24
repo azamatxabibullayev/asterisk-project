@@ -12,7 +12,7 @@ def ami_connect(port=5038):
     greeting = s.recv(4096).decode()
     print("Greeting:", greeting)
 
-    # Login
+
     login_msg = (
         f"Action: Login\r\n"
         f"Username: {USER}\r\n"
