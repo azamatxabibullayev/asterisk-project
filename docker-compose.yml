@@ -1,32 +1,30 @@
+version: '3.8'
+
 services:
   asterisk-a:
-    image: andrius/asterisk
+    image: andrius/asterisk:18.11.2-alpine
     container_name: asterisk-a
-    restart: unless-stopped
     volumes:
-      - ./config/asterisk-a:/etc/asterisk
+      - ./asterisk-node-a/configs:/etc/asterisk
+      - ./asterisk-node-a/recordings:/var/spool/asterisk/recordings
     ports:
-      - "5060:5060/udp"                 # SIP (A)
-      - "10000-10050:10000-10050/udp"   # RTP (A)
-      - "9088:8088"                     # HTTP/WebSocket (A)
-      - "5038:5038"                     # AMI (A)
+      - "5060:5060/udp"
+      - "5038:5038"
     networks:
-      - astnet
+      - asterisk-net
 
   asterisk-b:
-    image: andrius/asterisk
+    image: andrius/asterisk:18.11.2-alpine
     container_name: asterisk-b
-    restart: unless-stopped
     volumes:
-      - ./config/asterisk-b:/etc/asterisk
+      - ./asterisk-node-b/configs:/etc/asterisk
+      - ./asterisk-node-b/recordings:/var/spool/asterisk/recordings
     ports:
-      - "5160:5060/udp"                 # SIP (B)
-      - "11000-11050:10000-10050/udp"   # RTP (B)
-      - "9188:8088"                     # HTTP/WebSocket (B)
-      - "5138:5038"                     # AMI (B)
+      - "5061:5060/udp"
+      - "5039:5038"
     networks:
-      - astnet
+      - asterisk-net
 
 networks:
-  astnet:
+  asterisk-net:
     driver: bridge
