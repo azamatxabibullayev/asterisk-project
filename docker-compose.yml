@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   asterisk-a:
     image: andrius/asterisk
@@ -8,10 +6,10 @@ services:
     volumes:
       - ./config/asterisk-a:/etc/asterisk
     ports:
-      - "5060:5060/udp"
-      - "10000-10050:10000-10050/udp"
-      - "8088:8088"
-      - "5038:5038"
+      - "5060:5060/udp"                 # SIP (A)
+      - "10000-10050:10000-10050/udp"   # RTP (A)
+      - "9088:8088"                     # HTTP/WebSocket (A)
+      - "5038:5038"                     # AMI (A)
     networks:
       - astnet
 
@@ -22,10 +20,10 @@ services:
     volumes:
       - ./config/asterisk-b:/etc/asterisk
     ports:
-      - "5160:5060/udp"
-      - "11000-11050:10000-10050/udp"
-      - "8089:8088"
-      - "5039:5038"
+      - "5160:5060/udp"                 # SIP (B)
+      - "11000-11050:10000-10050/udp"   # RTP (B)
+      - "9188:8088"                     # HTTP/WebSocket (B)
+      - "5138:5038"                     # AMI (B)
     networks:
       - astnet
 
