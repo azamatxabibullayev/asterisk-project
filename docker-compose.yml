@@ -10,8 +10,10 @@ services:
     ports:
       - "5060:5060/udp"
       - "5038:5038"
+      - "10000-10999:10000-10999/udp"
     networks:
       - asterisk-net
+    restart: unless-stopped
 
   asterisk-b:
     image: andrius/asterisk:18.11.2-alpine
@@ -22,8 +24,10 @@ services:
     ports:
       - "5061:5060/udp"
       - "5039:5038"
+      - "11000-11999:10000-10999/udp"
     networks:
       - asterisk-net
+    restart: unless-stopped
 
 networks:
   asterisk-net:
